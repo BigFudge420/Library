@@ -19,6 +19,8 @@ function displayBook(){
         Library.removeChild(ItemDiv)
     })
 
+    let index = 0
+
     myLibrary.forEach((book) => {
         let Title = book.titleOfTheBook
         let Author = book.authorName
@@ -31,6 +33,7 @@ function displayBook(){
 
         const cardElement = document.createElement('div')
         cardElement.classList.add('card')
+        cardElement.setAttribute('data-number', index)
         Item.appendChild(cardElement)
 
         const titleElement = document.createElement('p')
@@ -57,12 +60,34 @@ function displayBook(){
         statusElement.textContent = Status
         cardElement.appendChild(statusElement)
 
+
         const removeBtn = document.createElement('button')
         removeBtn.classList.add('remove')
+        removeBtn.setAttribute('data-index', index)
         removeBtn.textContent = "Remove book"
         Item.appendChild(removeBtn)
+        removeBtn.addEventListener('click', (event) => {
+            const button = event.target 
+            removeBook(button)          
+        })
+
+        index++
     })
     resetForm()
+}
+
+function removeBook(target){
+    const bookToRemove =  target.getAttribute('data-index')
+    myLibrary.splice(bookToRemove, 1)
+    console.log(bookToRemove)
+    const Cards = document.querySelectorAll('.card')
+    Cards.forEach((card) => {
+        let currentBook = card.getAttribute('data-number')
+        if (currentBook === bookToRemove){
+            let parentItem = card.parentNode
+            Library.removeChild(parentItem)
+        }
+    })
 }
 
 const Form = document.querySelector('.book-form')
@@ -108,7 +133,7 @@ formElement.addEventListener('submit', (event) => {
     else {
         statusValue = 'Not read'
     }
-
+    
     const book = new Book(titleValue,authorValue,pagesValue,statusValue)
     addBookToLibrary(book)
     displayBook()
@@ -124,3 +149,4 @@ submitBtn.addEventListener('click', () => {
     Form.classList.remove('active')
     Overlay.classList.remove('active')
 })
+
