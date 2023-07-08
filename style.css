@@ -26,6 +26,19 @@
     border-radius: 20px;
     background-color: lightgray;
     z-index: 10;
+    padding-bottom: 20px;
+}
+
+.submit-btn{
+    width: 50%;
+    margin: auto auto;
+    height: 30px;
+    border-radius: 10px;
+    color: white;
+    background-color: black;
+    border: none;
+    font-weight: bold;
+    font-size: 15px;
 }
 
 
