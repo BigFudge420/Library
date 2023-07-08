@@ -1,3 +1,26 @@
+.new-book{
+    font-family: 'Ubuntu', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+}
+
+.new-book-btn{
+    width: 200px;
+    background: none;
+    appearance: none;
+    border: none;
+    border-radius: 10px;
+    font-size: 25px;
+    padding: 5px;
+    margin-top: 10px;
+    font-weight: bold;
+    font-family: 'Ubuntu', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.new-book-btn:hover{
+    background-color: rgb(211, 211, 211);
+}
+
 .library{
     display: flex;
     flex-wrap: wrap;
