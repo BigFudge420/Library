@@ -56,4 +56,25 @@ function displayBook(){
     })
 }
 
+const Form = document.querySelector('.book-form')
+const Overlay = document.getElementById('overlay')
+const newBookBtn = document.querySelector('.new-book-btn')
+const closePopupBtn = document.getElementById('close')
+
+function showPopups(){
+    newBookBtn.addEventListener('click', () => {
+        Form.classList.add('active')
+        Overlay.classList.add('active')
+    })
+}
+
+function removePopups(){
+    closePopupBtn.addEventListener('click', () => {
+        Form.classList.remove('active')
+        Overlay.classList.remove('active')
+    })
+}
+
+showPopups()
+removePopups()
 

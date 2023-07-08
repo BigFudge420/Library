@@ -12,6 +12,23 @@
     <div class="new-book">
         <button class="new-book-btn">&plus; Add Book</button>
     </div>
+    <div class="form-container">
+        <div class="book-form">
+            <div class="form-title">
+                <h2>Add a new book</h2>
+                <button id="close">&times;</button>
+            </div>
+            <form action="example.com" method="post">
+                <input type="text" class="title-input" name="title" placeholder="Title...">
+                <input type="text" class="author-input" name="author" placeholder="Author...">
+                <input type="number" class="pages-input" name="pages" placeholder="Pages...">
+                <div class="status">
+                    <label for="status">Have you read it yet?</label>
+                    <input type="checkbox" name="status" id="status">
+                </div>
+            </form>
+        </div>
+    </div>
     <div class="library">
         <div class="card">
             <p class="card-item title">Book</p>
@@ -20,6 +37,7 @@
             <p class="card-item status">Read</p>
         </div>
     </div>
+    <div id="overlay"></div>
     <script src="index.js"></script>
 </body>
 </html>
