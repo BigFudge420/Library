@@ -12,11 +12,11 @@ function addBookToLibrary(book){
 }
 
 const Library = document.querySelector('.library')
+
 function displayBook(){
-    
-    const Cards = document.querySelectorAll('.card')
-    Cards.forEach((Card) => {
-        Library.removeChild(Card)
+    const ItemDivs = document.querySelectorAll('.items')
+    ItemDivs.forEach((ItemDiv) => {
+        Library.removeChild(ItemDiv)
     })
 
     myLibrary.forEach((book) => {
@@ -25,10 +25,13 @@ function displayBook(){
         let Pages = book.numberOfPages
         let Status = book.readStatus
         
+        const Item = document.createElement('div')
+        Item.classList.add('items')
+        Library.appendChild(Item)
 
         const cardElement = document.createElement('div')
         cardElement.classList.add('card')
-        Library.appendChild(cardElement)
+        Item.appendChild(cardElement)
 
         const titleElement = document.createElement('p')
         titleElement.classList.add('card-item')
@@ -53,6 +56,11 @@ function displayBook(){
         statusElement.classList.add('status')
         statusElement.textContent = Status
         cardElement.appendChild(statusElement)
+
+        const removeBtn = document.createElement('button')
+        removeBtn.classList.add('remove')
+        removeBtn.textContent = "Remove book"
+        Item.appendChild(removeBtn)
     })
     resetForm()
 }
