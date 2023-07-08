@@ -7,25 +7,25 @@ function Book(titleOfTheBook, authorName, numberOfPages, readStatus){
     this.readStatus = readStatus
 }
 
-const book1 = new Book("kjsndkjsn", "ksndkjns", 655, "jknsdkjn")
-const book2 = new Book('skjsdn', 'jsndkjs', 343, 'skdnsn')
-
 function addBookToLibrary(book){
     myLibrary.push(book)
 }
 
-addBookToLibrary(book2)
-addBookToLibrary(book1)
-console.log(myLibrary)
-
 const Library = document.querySelector('.library')
 function displayBook(){
+    
+    const Cards = document.querySelectorAll('.card')
+    Cards.forEach((Card) => {
+        Library.removeChild(Card)
+    })
+
     myLibrary.forEach((book) => {
         let Title = book.titleOfTheBook
         let Author = book.authorName
         let Pages = book.numberOfPages
         let Status = book.readStatus
         
+
         const cardElement = document.createElement('div')
         cardElement.classList.add('card')
         Library.appendChild(cardElement)
@@ -54,6 +54,7 @@ function displayBook(){
         statusElement.textContent = Status
         cardElement.appendChild(statusElement)
     })
+    resetForm()
 }
 
 const Form = document.querySelector('.book-form')
@@ -78,3 +79,40 @@ function removePopups(){
 showPopups()
 removePopups()
 
+const formElement = document.querySelector('form')
+
+
+formElement.addEventListener('submit', (event) => {
+    event.preventDefault()
+    
+    const titleInput = document.querySelector('.title-input')
+    const titleValue = titleInput.value  
+    const authorInput = document.querySelector('.author-input')  
+    const authorValue = authorInput.value
+    const pagesInput = document.querySelector('.pages-input')
+    const pagesValue = pagesInput.value  
+    const checkbox = document.getElementById('status')
+    let statusValue;
+
+    if (checkbox.checked){
+        statusValue = 'Read'
+    }
+    else {
+        statusValue = 'Not read'
+    }
+
+    const book = new Book(titleValue,authorValue,pagesValue,statusValue)
+    addBookToLibrary(book)
+    displayBook()
+})
+
+const submitBtn = document.querySelector('.submit-btn')
+
+function resetForm(){
+    document.querySelector('form').reset()
+}
+
+submitBtn.addEventListener('click', () => {
+    Form.classList.remove('active')
+    Overlay.classList.remove('active')
+})
