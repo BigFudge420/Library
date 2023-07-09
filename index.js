@@ -85,12 +85,7 @@ function displayBook(){
             if (statusElement.classList.contains(true)){
                 statusElement.classList.remove(true)
             }
-        }
-        console.log(currentBook)
-        console.log(indexNum)
-        console.log(className)
-        console.log(myLibrary)
-        
+        }        
 
         const removeBtn = document.createElement('button')
         removeBtn.classList.add('remove')
