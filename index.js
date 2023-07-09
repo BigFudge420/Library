@@ -1,3 +1,10 @@
+const Library = document.querySelector('.library')
+const Form = document.querySelector('.book-form')
+const Overlay = document.getElementById('overlay')
+const newBookBtn = document.querySelector('.new-book-btn')
+const closePopupBtn = document.getElementById('close')
+const formElement = document.querySelector('form')
+const submitBtn = document.querySelector('.submit-btn')
 let myLibrary = []
 let haveRead;
 
@@ -12,8 +19,6 @@ function Book(titleOfTheBook, authorName, numberOfPages, readStatus, readBoolean
 function addBookToLibrary(book){
     myLibrary.push(book)
 }
-
-const Library = document.querySelector('.library')
 
 function displayBook(){
     const ItemDivs = document.querySelectorAll('.items')
@@ -105,20 +110,18 @@ function displayBook(){
 function toggleReadStatus(cardElement) {
     const index = cardElement.getAttribute('data-number');
     const book = myLibrary[index];
-    book.readBoolean = !book.readBoolean;
+    book.readBoolean = !(book.readBoolean);
     let statusBtn = cardElement.querySelector('.status') 
     statusBtn.textContent = book.readBoolean ? 'Read' : 'Not read';
     statusBtn.classList.add(`${book.readBoolean}`)
     if (statusBtn.classList.contains(`${!book.readBoolean}`)){
         statusBtn.classList.remove(`${!book.readBoolean}`)
     }
-    console.log(myLibrary)
-  }  
+}  
 
 function removeBook(target){
     const bookToRemove =  target.getAttribute('data-index')
     myLibrary.splice(bookToRemove, 1)
-    console.log(bookToRemove)
     const Cards = document.querySelectorAll('.card')
     Cards.forEach((card) => {
         let currentBook = card.getAttribute('data-number')
@@ -127,12 +130,8 @@ function removeBook(target){
             Library.removeChild(parentItem)
         }
     })
+    displayBook()
 }
-
-const Form = document.querySelector('.book-form')
-const Overlay = document.getElementById('overlay')
-const newBookBtn = document.querySelector('.new-book-btn')
-const closePopupBtn = document.getElementById('close')
 
 function showPopups(){
     newBookBtn.addEventListener('click', () => {
@@ -148,11 +147,9 @@ function removePopups(){
     })
 }
 
-showPopups()
-removePopups()
-
-const formElement = document.querySelector('form')
-
+function resetForm(){
+    document.querySelector('form').reset()
+}
 
 formElement.addEventListener('submit', (event) => {
     event.preventDefault()
@@ -181,14 +178,10 @@ formElement.addEventListener('submit', (event) => {
     displayBook()
 })
 
-const submitBtn = document.querySelector('.submit-btn')
-
-function resetForm(){
-    document.querySelector('form').reset()
-}
-
 submitBtn.addEventListener('click', () => {
     Form.classList.remove('active')
     Overlay.classList.remove('active')
 })
 
+showPopups()
+removePopups()
