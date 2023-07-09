@@ -1,10 +1,12 @@
 let myLibrary = []
+let haveRead;
 
-function Book(titleOfTheBook, authorName, numberOfPages, readStatus){
+function Book(titleOfTheBook, authorName, numberOfPages, readStatus, readBoolean){
     this.titleOfTheBook = titleOfTheBook
     this.authorName = authorName 
     this.numberOfPages = numberOfPages
     this.readStatus = readStatus
+    this.readBoolean = readBoolean
 }
 
 function addBookToLibrary(book){
@@ -45,7 +47,7 @@ function displayBook(){
         const authorElement = document.createElement('p')
         authorElement.classList.add('card-item')
         authorElement.classList.add('author')
-        authorElement.textContent = Author
+        authorElement.textContent = `by ${Author}`
         cardElement.appendChild(authorElement)
 
         const pagesElement = document.createElement('p')
@@ -54,12 +56,36 @@ function displayBook(){
         pagesElement.textContent = Pages
         cardElement.appendChild(pagesElement)
 
-        const statusElement = document.createElement('p')
+        const statusElement = document.createElement('button')
         statusElement.classList.add('card-item')
         statusElement.classList.add('status')
         statusElement.textContent = Status
+        statusElement.addEventListener('click', () => {
+            toggleReadStatus(cardElement);
+        });      
         cardElement.appendChild(statusElement)
-
+        statusElement.textContent = book.readBoolean ? 'Read' : 'Not read';
+        let currentCard = statusElement.parentNode
+        let indexNum = currentCard.getAttribute('data-number')
+        let currentBook = myLibrary[indexNum]
+        let className = currentBook.readBoolean
+        if (className){
+            statusElement.classList.add(true)
+            if (statusElement.classList.contains(false)){
+                statusElement.classList.remove(false)
+            }
+        }
+        else if (!className){
+            statusElement.classList.add(false)
+            if (statusElement.classList.contains(true)){
+                statusElement.classList.remove(true)
+            }
+        }
+        console.log(currentBook)
+        console.log(indexNum)
+        console.log(className)
+        console.log(myLibrary)
+        
 
         const removeBtn = document.createElement('button')
         removeBtn.classList.add('remove')
@@ -75,6 +101,19 @@ function displayBook(){
     })
     resetForm()
 }
+
+function toggleReadStatus(cardElement) {
+    const index = cardElement.getAttribute('data-number');
+    const book = myLibrary[index];
+    book.readBoolean = !book.readBoolean;
+    let statusBtn = cardElement.querySelector('.status') 
+    statusBtn.textContent = book.readBoolean ? 'Read' : 'Not read';
+    statusBtn.classList.add(`${book.readBoolean}`)
+    if (statusBtn.classList.contains(`${!book.readBoolean}`)){
+        statusBtn.classList.remove(`${!book.readBoolean}`)
+    }
+    console.log(myLibrary)
+  }  
 
 function removeBook(target){
     const bookToRemove =  target.getAttribute('data-index')
@@ -126,15 +165,18 @@ formElement.addEventListener('submit', (event) => {
     const pagesValue = pagesInput.value  
     const checkbox = document.getElementById('status')
     let statusValue;
+    let haveRead;
 
     if (checkbox.checked){
         statusValue = 'Read'
+        haveRead = true;
     }
     else {
         statusValue = 'Not read'
+        haveRead = false;
     }
     
-    const book = new Book(titleValue,authorValue,pagesValue,statusValue)
+    const book = new Book(titleValue,authorValue,pagesValue,statusValue, haveRead)
     addBookToLibrary(book)
     displayBook()
 })
